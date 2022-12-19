@@ -37,6 +37,7 @@ public class ButtonController : MonoBehaviourPunCallbacks
     }
     public void OnClickLobbynButton()
     {
+        PhotonNetwork.Disconnect();
         SceneManager.LoadScene("Lobby");
     }
 
@@ -49,8 +50,5 @@ public class ButtonController : MonoBehaviourPunCallbacks
         respawnTransform = SA_id.GetComponent<Transform>();
         tmp = PhotonNetwork.Instantiate("Player", new Vector3(respawnTransform.position.x, respawnTransform.position.y), Quaternion.identity);
         m_Animplayer = tmp.GetComponent<PlayerAnimController>();
-        //attackpoint = tmp.transform.Find
-
-
     }
 }
