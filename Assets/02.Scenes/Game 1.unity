@@ -15825,11 +15825,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myPercentText: {fileID: 2070376481}
   winnerText: {fileID: 1787484385}
-  PlayerColor:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &1306550458
 Transform:
   m_ObjectHideFlags: 0

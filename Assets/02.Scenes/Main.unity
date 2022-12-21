@@ -337,6 +337,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Reporter
       objectReference: {fileID: 0}
+    - target: {fileID: 1790413822135764, guid: 40a1cd8ceec1877469142c29ec3464b7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4659309493049222, guid: 40a1cd8ceec1877469142c29ec3464b7, type: 3}
       propertyPath: m_RootOrder
       value: 5

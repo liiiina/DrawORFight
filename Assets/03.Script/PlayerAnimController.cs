@@ -16,7 +16,6 @@ public class PlayerAnimController : MonoBehaviour
 
     
     public void ChangeWeapon() {
-        Debug.Log("Anim Change");
         _IsDrawing = !_IsDrawing;
         SetDraw( _IsDrawing );
         m_player.getspeed = m_player.getspeed;
@@ -24,12 +23,12 @@ public class PlayerAnimController : MonoBehaviour
         {
             movepoint.SetActive(false);
             //speed¡ı∞°s
-            m_player.getspeed = 2f;
+            m_player.getspeed = 4f;
         }
         else
         {
             movepoint.SetActive(true);
-            m_player.getspeed = 4f;
+            m_player.getspeed = 8f;
         }
     }
 

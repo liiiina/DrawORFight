@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         m_aimplayer.Die();
         GameObject.Find("UI").transform.Find("Panel_Respawn").gameObject.SetActive(true);
         yield return new WaitForSeconds(time);
-        PV?.RPC("DestroyRPC", RpcTarget.AllBuffered);
+        PV.RPC("DestroyRPC", RpcTarget.AllBuffered);
     }
     #endregion
 
@@ -70,9 +70,8 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         var coll_tile = GameObject.Find(name).GetComponent<SpriteRenderer>();
         /*
         Debug.Log(coll_tile);
-        Debug.Log(PlayerColor[id]);
         Debug.Log(coll_tile.color);*/
-        coll_tile.color = PlayerColor[id];
+        coll_tile.color = PlayerList.instance.GetPlayerColor(id);
     }
     [PunRPC]
     void RotateXRPC(float x)
@@ -132,8 +131,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
             m_aimplayer.Attacked();
             Health.fillAmount -= damage;
         }
-        if (Health.fillAmount == 0&& PV.IsMine)
-            StartCoroutine("Die", 1.4f);
+        if (Health.fillAmount == 0 && PV.IsMine) StartCoroutine("Die", 1.4f);
     }
 
  
