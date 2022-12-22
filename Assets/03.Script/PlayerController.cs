@@ -69,9 +69,11 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         //Debug.Log(id);
         var coll_tile = GameObject.Find(name).GetComponent<SpriteRenderer>();
         /*
-        Debug.Log(coll_tile);
-        Debug.Log(coll_tile.color);*/
-        coll_tile.color = PlayerList.instance.GetPlayerColor(id);
+        Debug.Log(coll_tile);*/
+        
+        coll_tile.color = PlayerList.Instance.GetPlayerColor(id);
+        Debug.Log(coll_tile.color);
+        Debug.Log(id);
     }
     [PunRPC]
     void RotateXRPC(float x)

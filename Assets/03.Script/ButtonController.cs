@@ -9,6 +9,7 @@ using Photon.Realtime;
 
 public class ButtonController : MonoBehaviourPunCallbacks
 {
+    [SerializeField] GameObject resultpoint;
     public GameObject[] RespawnPoint = new GameObject[4];
     private GameObject tmp;
     private GameObject attackpoint;

@@ -10,6 +10,7 @@ public class Countdown : MonoBehaviour
     [SerializeField] Text countdownText;
     [SerializeField] GameObject resultPanel;
     [SerializeField] GameObject joystick;
+    [SerializeField] GameObject resultscript;
     // Start is called before the first frame update
 
     [SerializeField] int _Min;
@@ -49,6 +50,7 @@ public class Countdown : MonoBehaviour
             Time.timeScale = 0.0f;
             resultPanel.SetActive(true);
             joystick.SetActive(false);
+            resultscript.SetActive(true);
         }
         int sec = (int)_Sec;
         string tmp = _Min.ToString("D2") + " : " + sec.ToString("D2");

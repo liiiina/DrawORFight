@@ -20,7 +20,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public Text InfoText; 
     public Button joinButton; // ·ë Á¢¼Ó ¹öÆ°
     public GameObject waitPanel;
-    static int myid;
+
+    private static int myid;
     private int count = 0; 
 
     bool roomConnect = false;
@@ -94,6 +95,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 myid = PhotonNetwork.CurrentRoom.PlayerCount;
                 count++;
                 idtext.text = LoginManager._username;
+                PlayerList.Instance.AddPlayerinfo(myid, idtext.text);
             }
             
             if (PhotonNetwork.CurrentRoom.PlayerCount < 2)

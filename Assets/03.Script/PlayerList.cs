@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerList : MonoBehaviour
 {
     //singletone
-    public static PlayerList instance = null;
+    private static PlayerList instance = null;
+
     //playerinfo 구조체 만들기
     struct PlayerInfo
     {
@@ -17,13 +18,37 @@ public class PlayerList : MonoBehaviour
 
     PlayerInfo[] presentInfo = new PlayerInfo[4];
     public Color[] PlayerColor = new Color[4];
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        PlayerInfo[] presentInfo = new PlayerInfo[4];
+
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log(gameObject);
+        }
+        else
+        {
+            if (instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+
+        }
+
     }
 
+    public static PlayerList Instance
+    {
+        get
+        {
+            if (instance==null)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
 
     public void AddPlayerinfo(int id, string name)
     {
@@ -40,36 +65,36 @@ public class PlayerList : MonoBehaviour
     public Color GetPlayerColor(int id) //컬러 가져오기
     {
         return presentInfo[id].TileColor;
-    }
-
-    
+    }  
     public string GetPlaerNickname(int id)// 이름 가져오기
     {
         return presentInfo[id].NickName;
     }
-
     public int GetTileCount(int id)//타일 갯수
     {
         return presentInfo[id].TileCount;
     }
-    public int GetWinner() //우승자
+    public string GetWinner() //우승자
     {
-
-        return 0;
+        int maxtile = 0,maxid = 0;
+        for(int i = 0; i < 4; i++)
+        {
+            if (i == 0)
+            {
+                maxtile = presentInfo[i].TileCount;
+            }
+            else
+            {
+                if (presentInfo[i].TileCount > maxtile)
+                {
+                    maxtile = presentInfo[i].TileCount;
+                    maxid = i;
+                }
+            }
+        }
+        return presentInfo[maxid].NickName;
     }
 
-    private void Awake()
-    {
-        if(instance == null)
-        {
-            instance = null;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            if (instance != this)
-                Destroy(this.gameObject);
-        }
-        
-    }
+
+    
 }

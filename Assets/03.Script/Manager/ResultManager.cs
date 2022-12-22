@@ -19,7 +19,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
     void Start()
     {
         var id = NetworkManager._userid;
-        var playerinfo = PlayerList.instance;
+        var playerinfo = PlayerList.Instance;
         //그리드 포문으로 확인해서 색깔 몇개 있는지 확인 48 * 24
         for(int i = 0; i < width; i++)
         {
@@ -32,16 +32,11 @@ public class ResultManager : MonoBehaviourPunCallbacks
                     if (Color.Equals(tile.color, playerinfo.GetPlayerColor(n)))
                         playerinfo.TileCount(n);
                 }
-                
             }
         }
         myPercentText.text = ((width * height) / playerinfo.GetTileCount(id)*100).ToString()+"%";//나의 타일 퍼센트
-        
-        /*
-        var winnercount = tilecount.Max();
-        var winnerid = Array.IndexOf(tilecount, winnercount);
-        winnerText.text = winnerid.ToString();
-        */
+        winnerText.text = playerinfo.GetWinner();
+
     }
 
 }
