@@ -95,7 +95,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 myid = PhotonNetwork.CurrentRoom.PlayerCount;
                 count++;
                 idtext.text = LoginManager._username;
-                PlayerList.Instance.AddPlayerinfo(myid, idtext.text);
+                PlayerList.Instance.AddPlayerinfo(myid-1, idtext.text);
             }
             
             if (PhotonNetwork.CurrentRoom.PlayerCount < 2)
@@ -126,6 +126,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     
     public void Init()
     {
+        
         PhotonNetwork.LoadLevel("Game");
     }
     

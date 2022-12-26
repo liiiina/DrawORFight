@@ -25,7 +25,6 @@ public class PlayerList : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log(gameObject);
         }
         else
         {
@@ -35,6 +34,7 @@ public class PlayerList : MonoBehaviour
             }
 
         }
+        for (int i = 0; i < 4; i++) presentInfo[i].TileColor = PlayerColor[i];
 
     }
 
@@ -55,7 +55,6 @@ public class PlayerList : MonoBehaviour
         presentInfo[id].ID = id;
         presentInfo[id].NickName = name;
         presentInfo[id].TileCount = 0;
-        presentInfo[id].TileColor = PlayerColor[id];
     }
     public void TileCount(int id) //Å¸ÀÏ °¹¼ö Áõ°¡
     {
@@ -77,22 +76,24 @@ public class PlayerList : MonoBehaviour
     public string GetWinner() //¿ì½ÂÀÚ
     {
         int maxtile = 0,maxid = 0;
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 2; i++)
         {
             if (i == 0)
             {
-                maxtile = presentInfo[i].TileCount;
+                maxtile = GetTileCount(i);
             }
             else
             {
-                if (presentInfo[i].TileCount > maxtile)
+                if (GetTileCount(i) > maxtile)
                 {
-                    maxtile = presentInfo[i].TileCount;
+                    maxtile = GetTileCount(i);
                     maxid = i;
                 }
             }
         }
-        return presentInfo[maxid].NickName;
+        Debug.Log("nickname");
+        for (int i = 0; i < 2; i++) Debug.Log(GetPlaerNickname(i));
+        return GetPlaerNickname(maxid);
     }
 
 

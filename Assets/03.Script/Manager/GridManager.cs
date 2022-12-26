@@ -9,9 +9,6 @@ public class GridManager : MonoBehaviour
     [SerializeField] Tile _tilePrefab;
     [SerializeField] Text winner, myresult;
 
-    Dictionary<string,int> colorDB = new Dictionary<string, int>();
-    List<int> checkColor = new List<int>();
-
     void GenerateGrid()
     {
         for(int i = 1; i < _width; i++)
@@ -32,29 +29,4 @@ public class GridManager : MonoBehaviour
         GenerateGrid();
     }
 
-    void ResultGrid(Color mycolor)
-    {
-        
-        for(int i = 1; i < _width; i++)
-        {
-            for(int j = 1; j < _height; j++)
-            {
-                var grid = GameObject.Find($"Tile {i} {j}");
-                var gridrenderer = grid.GetComponent<SpriteRenderer>();
-                var color = gridrenderer.color;
-                if (colorDB.ContainsKey(color.ToString()))
-                {
-                    colorDB.Add(color.ToString(), 1);
-                }
-                else
-                {
-                    colorDB[color.ToString()]++;
-                }
-               
-            }
-        }
-        
-
-
-    }
 }

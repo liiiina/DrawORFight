@@ -12,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - PlayerUI
   - 
   - 
   - 
@@ -42,10 +42,10 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Layer 1
+  - name: UI
     uniqueID: 2425651459
     locked: 0
-  - name: Layer 2
+  - name: PlayerUI
     uniqueID: 4250941897
     locked: 0
   - name: Layer 3

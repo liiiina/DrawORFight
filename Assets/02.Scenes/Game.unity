@@ -14873,7 +14873,7 @@ PrefabInstance:
     - target: {fileID: 8770216508851842260, guid: eeeeb162b0088c04081645e773589f7b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -91.425
+      value: -91.42499
       objectReference: {fileID: 0}
     - target: {fileID: 8770216508851842260, guid: eeeeb162b0088c04081645e773589f7b,
         type: 3}
@@ -15549,7 +15549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb668193e2382d43a97729e54c64d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setTime: 100
+  setTime: 20
   countdownText: {fileID: 998554642}
   resultPanel: {fileID: 1413404237}
   joystick: {fileID: 1852814849}
@@ -15978,7 +15978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1413404238
 RectTransform:
   m_ObjectHideFlags: 0

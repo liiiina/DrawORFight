@@ -13,30 +13,17 @@ public class ResultManager : MonoBehaviourPunCallbacks
     [SerializeField] Text myPercentText, winnerText;
 
 
-    int width = 49;
-    int height = 25;
+    int width = 48;
+    int height = 24;
 
     void Start()
     {
-        var id = NetworkManager._userid;
+        var id = NetworkManager._userid-1;
         var playerinfo = PlayerList.Instance;
-        //그리드 포문으로 확인해서 색깔 몇개 있는지 확인 48 * 24
-        for(int i = 0; i < width; i++)
-        {
-            for(int j = 0; j < height; j++)
-            {
-                
-                var tile = GameObject.Find($"Tile {i} {j}").GetComponent<SpriteRenderer>();
-                for(int n = 0; n < 4; n++)
-                {
-                    if (Color.Equals(tile.color, playerinfo.GetPlayerColor(n)))
-                        playerinfo.TileCount(n);
-                }
-            }
-        }
-        myPercentText.text = ((width * height) / playerinfo.GetTileCount(id)*100).ToString()+"%";//나의 타일 퍼센트
+        for(int j = 0;j<2;j++) Debug.Log(playerinfo.GetTileCount(j));
+        if (playerinfo.GetTileCount(id) == 0) myPercentText.text = "0%";
+        else myPercentText.text = ((playerinfo.GetTileCount(id)/ (width * height))*100).ToString()+"%";//나의 타일 퍼센트
         winnerText.text = playerinfo.GetWinner();
-
     }
 
 }

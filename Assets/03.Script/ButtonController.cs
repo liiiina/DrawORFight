@@ -15,7 +15,6 @@ public class ButtonController : MonoBehaviourPunCallbacks
     private GameObject attackpoint;
 
     PlayerAnimController m_Animplayer;
-    //PlayerController m_player;
     Transform respawnTransform;
 
     public GameObject _gettmp { get { return tmp; } }
@@ -45,7 +44,6 @@ public class ButtonController : MonoBehaviourPunCallbacks
     void Awake()
     {
         var id = NetworkManager._userid;
-        Debug.Log("Awake ButtonController");
         GameObject SA = GameObject.Find("SpawnArea");
         Transform SA_id = SA.transform.Find("SpawnArea_" + id);
         respawnTransform = SA_id.GetComponent<Transform>();

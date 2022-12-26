@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6021721437623095832}
   - component: {fileID: 6556450689402617621}
   - component: {fileID: 6758844344103019129}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3421253673036478473}
   - component: {fileID: 3421253673036478478}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MovingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3841900363566905650}
   - component: {fileID: 2798005957229055026}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackPosition_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.06874633, y: 0.18024638}
+  m_Offset: {x: 0.09972143, y: 0.3402866}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -212,7 +212,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8913903, y: 0.40291113}
+  m_Size: {x: 0.7261877, y: 0.7229916}
   m_EdgeRadius: 0
 --- !u!1 &3841900363744687462
 GameObject:
@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 822761897363326382}
   - component: {fileID: 2324358125112918823}
   - component: {fileID: 555010719507571669}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -300,7 +300,7 @@ SpriteRenderer:
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 425bf0be468554d6cb0b4ddd8c1c48c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2.4, y: 2.4}
@@ -401,7 +401,8 @@ MonoBehaviour:
     type: 3}
   SR: {fileID: 3841900363744687460}
   Health: {fileID: 841874367210161857}
-  AttackPoint: {fileID: 3841900363566905651}
+  AttackPoint_left: {fileID: 5826065721756068429}
+  AttackPoint_right: {fileID: 3841900363566905651}
   NicknameText: {fileID: 2587531698790437091}
   PV: {fileID: 4072435457848982940}
   PlayerColor:
@@ -509,7 +510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6784729816724012198}
   - component: {fileID: 1813308308166792451}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackPosition_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,7 +525,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5826065721756068429}
   m_LocalRotation: {x: 0.002007169, y: 0, z: 0, w: 0.99999803}
-  m_LocalPosition: {x: 0.81, y: -0.05, z: 0}
+  m_LocalPosition: {x: -1.13, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3841900363744687467}
@@ -543,7 +544,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -2.05, y: 0.18024638}
+  m_Offset: {x: 0.13027, y: 0.38158727}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -554,7 +555,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8913903, y: 0.40291113}
+  m_Size: {x: 0.67222214, y: 0.8055929}
   m_EdgeRadius: 0
 --- !u!1 &5873158938573885769
 GameObject:
@@ -569,7 +570,7 @@ GameObject:
   - component: {fileID: 2587531698790437091}
   - component: {fileID: 5930556092197926789}
   - component: {fileID: 5966764309051797920}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NickName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,7 +677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2594217852263688517}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -716,7 +717,7 @@ GameObject:
   - component: {fileID: 3653260890846578794}
   - component: {fileID: 2285609331020931437}
   - component: {fileID: 841874367210161857}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -791,7 +792,7 @@ GameObject:
   - component: {fileID: 8106042808037404200}
   - component: {fileID: 4357296344720996604}
   - component: {fileID: 853874771393343849}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HealthArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

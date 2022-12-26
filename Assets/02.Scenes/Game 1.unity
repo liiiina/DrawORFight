@@ -14662,6 +14662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05921b94b110a5545878f927941461f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resultpoint: {fileID: 0}
   RespawnPoint:
   - {fileID: 0}
   - {fileID: 0}
@@ -15314,11 +15315,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4072435457848982940, guid: ba79bba1ce44168489d7b8388b9f8c8c,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba79bba1ce44168489d7b8388b9f8c8c, type: 3}
 --- !u!1 &887983888
@@ -15555,6 +15551,7 @@ MonoBehaviour:
   countdownText: {fileID: 998554642}
   resultPanel: {fileID: 1413404237}
   joystick: {fileID: 1852814849}
+  resultscript: {fileID: 0}
   _Min: 0
   _Sec: 0
 --- !u!1 &1020056582
@@ -15979,7 +15976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1413404238
 RectTransform:
   m_ObjectHideFlags: 0

@@ -20,7 +20,6 @@ public class LoginManager : MonoBehaviour
         if (gameinto == 0)
         {
             var inputText = loginInput.GetComponent<InputField>().text;
-            Debug.Log(inputText.Length);
             if (inputText.Length==0)
             {
                 loginInfoText.text = "닉네임을 한글자 이상 입력해주세요";

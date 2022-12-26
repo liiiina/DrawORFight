@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     [SerializeField] GameObject hpPrefab;
     [SerializeField] SpriteRenderer SR;
     [SerializeField] Image Health;
-    [SerializeField] GameObject AttackPoint;
+    [SerializeField] GameObject AttackPoint_left;
+    [SerializeField] GameObject AttackPoint_right;
 
     public Text NicknameText;
     public PhotonView PV;
@@ -41,10 +42,11 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     float yMin = 1;
     float yMax = 25;
     string tilename;
+    bool isflip = false;
     
 
-    public float getspeed { get { return _speed; } set { _speed = value; } }
-    public bool _isAttack { get { return attack; } set { attack = value; } }
+    public float SPEED { get { return _speed; } set { _speed = value; } }
+    //public bool _isAttack { get { return attack; } set { attack = value; } }
 
     #region Coroutine
     IEnumerator Die(float time)
@@ -58,6 +60,11 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     #endregion
 
     #region PunRPC
+    [PunRPC]
+    void AddNickname(int id, string name)
+    {
+        PlayerList.Instance.AddPlayerinfo(id, name);
+    }
 
     [PunRPC]
     void FlipXRPC(float x) => SR.flipX = x < 0;
@@ -68,32 +75,31 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     {
         //Debug.Log(id);
         var coll_tile = GameObject.Find(name).GetComponent<SpriteRenderer>();
-        /*
-        Debug.Log(coll_tile);*/
-        
         coll_tile.color = PlayerList.Instance.GetPlayerColor(id);
-        Debug.Log(coll_tile.color);
-        Debug.Log(id);
+        PlayerList.Instance.TileCount(id);
+        //Debug.Log(coll_tile.color);
     }
     [PunRPC]
-    void RotateXRPC(float x)
+    void FlipXColliderON(bool flip)
     {
-        if (x < 0)
-        {
-            var box = AttackPoint.GetComponent<BoxCollider2D>();
-            // 위치 옮기기
-        }
+        if (flip) AttackPoint_left.SetActive(true);
+        else AttackPoint_right.SetActive(true);
     }
-
+    [PunRPC]
+    void FlipXColliderOFF(bool flip)
+    {
+        if (flip) AttackPoint_left.SetActive(false);
+        else AttackPoint_right.SetActive(false);
+    }
     #endregion
 
     public void OnAttackPoint()
     {
-        AttackPoint.SetActive(true);
+        PV.RPC("FlipXColliderON", RpcTarget.AllBuffered, isflip);
     }
     public void OffAttackPoint()
     {
-        AttackPoint.SetActive(false);
+        PV.RPC("FlipXColliderOFF", RpcTarget.AllBuffered, isflip);
     }
     void Move()
     {
@@ -107,7 +113,8 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         else
         {
             PV.RPC("FlipXRPC", RpcTarget.AllBuffered, x);
-            PV.RPC("RotateXRPC", RpcTarget.AllBuffered, x);
+            if (x < 0) isflip = true;
+            else isflip = false;
             m_aimplayer.SetMove(true);
         }
         x = Mathf.Clamp(transform.position.x, xMin, xMax);
@@ -117,13 +124,11 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     public void Attack(Collider2D col) // 다시 설정
     {
         PlayerController tmp = col.gameObject.GetComponent<PlayerController>();
-        Debug.Log(tmp._id);
-        
         if (tmp != null&&!PV.IsMine)
         {
             tmp.TakeDamage(0.25f);
         }
-        attack = false;
+        //attack = false;
     }
 
     void TakeDamage(float damage)
@@ -148,7 +153,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         else if ( collision.CompareTag("Player") &&
                   PV.IsMine == false )
         {
-            Debug.Log(collision);
+            //Debug.Log(collision);
             Attack(collision);
         }
     }
@@ -179,12 +184,14 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         rigid = GetComponent<Rigidbody2D>();
         m_aimplayer = GetComponent<PlayerAnimController>();
         if(PV.IsMine) joy = GameObject.Find("UI").transform.Find("Joystick").gameObject.GetComponent<VariableJoystick>();
+        
     }
 
     void Start()
     {
-        _id = NetworkManager._userid-1;
+        _id = NetworkManager._userid- 1;
         PhotonNetwork.NickName = LoginManager._username;
+        PV.RPC("AddNickname", RpcTarget.AllBuffered, _id, PhotonNetwork.NickName);
         //Debug.Log(PhotonNetwork.NickName);
         m_cam = Camera.main.GetComponent<CameraController>();
         if(PV.IsMine) m_cam._target = this;

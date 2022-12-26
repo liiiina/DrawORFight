@@ -14,11 +14,5 @@ public class Tile : MonoBehaviourPunCallbacks {
     {
         _renderer.color = _baseColor;
     }
-    /*
-    public void DrawTile(Collider2D col,int id)
-    {
-        var tile = col.gameObject.GetComponent<SpriteRenderer>();
-        tile.color = PlayerColor[id];
-    }*/
 
 }
