@@ -91,8 +91,8 @@ public class PlayerList : MonoBehaviour
                 }
             }
         }
-        Debug.Log("nickname");
-        for (int i = 0; i < 2; i++) Debug.Log(GetPlaerNickname(i));
+        //Debug.Log("nickname");
+        //for (int i = 0; i < 2; i++) Debug.Log(GetPlaerNickname(i));
         return GetPlaerNickname(maxid);
     }
 

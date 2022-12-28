@@ -21,6 +21,8 @@ public class ResultManager : MonoBehaviourPunCallbacks
         var id = NetworkManager._userid-1;
         var playerinfo = PlayerList.Instance;
         for(int j = 0;j<2;j++) Debug.Log(playerinfo.GetTileCount(j));
+        Debug.Log(id);
+        // 타일 퍼센트
         if (playerinfo.GetTileCount(id) == 0) myPercentText.text = "0%";
         else myPercentText.text = ((playerinfo.GetTileCount(id)/ (width * height))*100).ToString()+"%";//나의 타일 퍼센트
         winnerText.text = playerinfo.GetWinner();

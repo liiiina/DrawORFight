@@ -13,12 +13,11 @@ public class ButtonController : MonoBehaviourPunCallbacks
     public GameObject[] RespawnPoint = new GameObject[4];
     private GameObject tmp;
     private GameObject attackpoint;
-
+    
     PlayerAnimController m_Animplayer;
     Transform respawnTransform;
-
+ 
     public GameObject _gettmp { get { return tmp; } }
-  
 
     public void OnClickChangeButton()
     {
@@ -35,11 +34,10 @@ public class ButtonController : MonoBehaviourPunCallbacks
         tmp = PhotonNetwork.Instantiate("Player", new Vector3(respawnTransform.position.x, respawnTransform.position.y), Quaternion.identity);
         m_Animplayer = tmp.GetComponent<PlayerAnimController>();
     }
-    public void OnClickLobbynButton()
-    {
-        PhotonNetwork.Disconnect();
-        SceneManager.LoadScene("Lobby");
-    }
+    public void OnClickLobbynButton() => SceneManager.LoadScene("Lobby");
+
+
+
 
     void Awake()
     {

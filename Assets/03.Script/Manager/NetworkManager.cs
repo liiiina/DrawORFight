@@ -25,33 +25,54 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private int count = 0; 
 
     bool roomConnect = false;
+    byte maxplayer = 2;
 
     public static int _userid { get { return myid; } }
 
     private void Awake() { _inst = this; }
 
 
-    private void Start()
+    public void Start()
     {
+        PhotonNetwork.GameVersion = "1";
         PhotonNetwork.AutomaticallySyncScene = true;
         if (!PhotonNetwork.IsConnected)
         {
             InfoText.text = "마스터 서버에 접속중입니다...";
-            PhotonNetwork.GameVersion = "1";
             PhotonNetwork.ConnectUsingSettings();
             joinButton.interactable = false;
         }
+        else if (PhotonNetwork.InRoom)
+        {
+            Time.timeScale = 1;
+            PhotonNetwork.LeaveRoom();
+        }
         else
         {
-            InfoText.text = "게임에 참가하시겠습니까?";
+            InfoText.text = "마스터 서버에 접속중입니다...";
+            joinButton.interactable = false;
         }
-        
     }
 
-    public override void OnConnectedToMaster()
+    public override void OnLeftRoom()
     {
         joinButton.interactable = true;
-        InfoText.text = "마스터 서버와 연결 완료";
+    }
+
+    public override void OnConnectedToMaster() //ConnectUsingSettings와 leave room의 콜백 함수
+    {
+        InfoText.text = "마스터 서버와 연결 완료!";
+        PhotonNetwork.JoinLobby();
+    }
+    public override void OnJoinedLobby()
+    {
+        InfoText.text = "로비에 접속완료!";
+        joinButton.interactable = true;
+    }
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        InfoText.text = "로비 접속 실패 다시 시도 합니다.";
+        PhotonNetwork.JoinLobby();
     }
     public override void OnDisconnected(DisconnectCause cause)
     {
@@ -68,14 +89,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            InfoText.text = "마스터 서버와 연결되지 않습니다...\n접속 재시도 중...";
-            PhotonNetwork.ConnectUsingSettings();
+            InfoText.text = "접속 재시도 중...";
+            PhotonNetwork.JoinLobby();
         }
     }
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         InfoText.text = "빈 방이 없습니다. 새로운 방을 생성중입니다...";
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 2 });
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxplayer });
     }
     public override void OnJoinedRoom()
     {
@@ -88,14 +109,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     void Update()
     {
+        idtext.text = PhotonNetwork.NetworkClientState.ToString();
         if (roomConnect)
         {
             if (count == 0)
             {
                 myid = PhotonNetwork.CurrentRoom.PlayerCount;
                 count++;
-                idtext.text = LoginManager._username;
-                PlayerList.Instance.AddPlayerinfo(myid-1, idtext.text);
+                PlayerList.Instance.AddPlayerinfo(myid-1, LoginManager._username);
             }
             
             if (PhotonNetwork.CurrentRoom.PlayerCount < 2)
