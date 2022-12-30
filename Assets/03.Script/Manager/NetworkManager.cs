@@ -49,7 +49,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            InfoText.text = "마스터 서버에 접속중입니다...";
+            InfoText.text = "서버에 연결완료";
             joinButton.interactable = false;
         }
     }
@@ -119,7 +119,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 PlayerList.Instance.AddPlayerinfo(myid-1, LoginManager._username);
             }
             
-            if (PhotonNetwork.CurrentRoom.PlayerCount < 2)
+            if (PhotonNetwork.CurrentRoom.PlayerCount < maxplayer)
             {
                 InfoText.text = "플레이어를 기다리는 중 입니다...";
                 var textObject = countOfPlayerText.GetComponent<Text>();
