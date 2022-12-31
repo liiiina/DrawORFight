@@ -6,7 +6,7 @@ public class PlayerList : MonoBehaviour
 {
     //singletone
     private static PlayerList instance = null;
-    int maxplayer = 2;
+
     //playerinfo 구조체 만들기
     struct PlayerInfo
     {
@@ -75,14 +75,11 @@ public class PlayerList : MonoBehaviour
     }
     public string GetWinner() //우승자
     {
-        int maxtile = 0,count = 0;
-        int[] maxid = new int[maxplayer];
-        string winnername = "";
-        for(int i = 0; i < maxplayer; i++)
+        int maxtile = 0,maxid = 0;
+        for(int i = 0; i < 2; i++)
         {
             if (i == 0)
             {
-                maxid[0] = 0;
                 maxtile = GetTileCount(i);
             }
             else
@@ -90,24 +87,13 @@ public class PlayerList : MonoBehaviour
                 if (GetTileCount(i) > maxtile)
                 {
                     maxtile = GetTileCount(i);
-                    maxid[count] = i;
-                }
-                else if (GetTileCount(i) == maxtile) 
-                {
-                    count++;
-                    maxid[count] = i;                    
+                    maxid = i;
                 }
             }
         }
-        for(int a = 0; a < count+1; a++)
-        {
-            winnername += GetPlaerNickname(maxid[a]);
-            winnername += "님! ";
-      
-        }
-
-        if (maxtile == 0) return "우승자는 없습니다";
-        else return winnername;
+        //Debug.Log("nickname");
+        //for (int i = 0; i < 2; i++) Debug.Log(GetPlaerNickname(i));
+        return GetPlaerNickname(maxid);
     }
 
 

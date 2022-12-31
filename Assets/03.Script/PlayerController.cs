@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     
 
     public float SPEED { get { return _speed; } set { _speed = value; } }
+    //public bool _isAttack { get { return attack; } set { attack = value; } }
 
     #region Coroutine
     IEnumerator Die(float time)
@@ -120,13 +121,14 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         y = Mathf.Clamp(transform.position.y, yMin, yMax);
         transform.position = new Vector2(x, y);
     }
-    public void Attack(Collider2D col)
+    public void Attack(Collider2D col) // 다시 설정
     {
         PlayerController tmp = col.gameObject.GetComponent<PlayerController>();
         if (tmp != null&&!PV.IsMine)
         {
             tmp.TakeDamage(0.25f);
         }
+        //attack = false;
     }
 
     void TakeDamage(float damage)
@@ -151,6 +153,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         else if ( collision.CompareTag("Player") &&
                   PV.IsMine == false )
         {
+            //Debug.Log(collision);
             Attack(collision);
         }
     }
@@ -189,6 +192,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         _id = NetworkManager._userid- 1;
         PhotonNetwork.NickName = LoginManager._username;
         PV.RPC("AddNickname", RpcTarget.AllBuffered, _id, PhotonNetwork.NickName);
+        //Debug.Log(PhotonNetwork.NickName);
         m_cam = Camera.main.GetComponent<CameraController>();
         if(PV.IsMine) m_cam._target = this;
         if (PV != null)

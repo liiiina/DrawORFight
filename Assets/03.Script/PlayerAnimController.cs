@@ -37,6 +37,7 @@ public class PlayerAnimController : MonoBehaviour
         if (!_IsDrawing) //인라인 안탈때만 공격 가능하게
         {
             m_animator.SetTrigger("Attack");
+            //m_player._isAttack = true;
         }
         
     }
