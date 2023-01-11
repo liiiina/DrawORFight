@@ -8,7 +8,6 @@ using Photon.Realtime;
 public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
 {
     [SerializeField] VariableJoystick joy;
-    [SerializeField] float _speed = 2f;
     [SerializeField] Transform pos;
     [SerializeField] Vector2 boxSize;
     [SerializeField] Canvas _canvas;
@@ -36,15 +35,13 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     Vector3 curPos;
 
     bool attack = false;
-    float x;
-    float y;
     float xMin = 1;
     float xMax = 48.5f;
     float yMin = 1;
     float yMax = 25;
     string tilename;
     bool isflip = false;
-    
+    float _speed = 3f;
 
     public float SPEED { get { return _speed; } set { _speed = value; } }
     //public bool _isAttack { get { return attack; } set { attack = value; } }
@@ -102,7 +99,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     {
         PV.RPC("FlipXColliderOFF", RpcTarget.AllBuffered, isflip);
     }
-    void Move()
+    void Move(float x, float y)
     {
         moveVec = new Vector2(x, y) * _speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + moveVec);
@@ -122,14 +119,13 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         y = Mathf.Clamp(transform.position.y, yMin, yMax);
         transform.position = new Vector2(x, y);
     }
-    public void Attack(Collider2D col) // 다시 설정
+    public void Attack(Collider2D col)
     {
         PlayerController tmp = col.gameObject.GetComponent<PlayerController>();
         if (tmp != null&&!PV.IsMine)
         {
             tmp.TakeDamage(0.25f);
         }
-        //attack = false;
     }
 
     void TakeDamage(float damage)
@@ -162,23 +158,24 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     
     void Update()
     {
+        float x, y;
         var camP = m_cam.GetComponent<Camera>();
         m_canvas.transform.position = camP.WorldToScreenPoint(gameObject.transform.position + new Vector3(0, 1.15f, 0));
         if (PV != null && PV.IsMine&&joy!=null)
         {
             x = joy.Horizontal;
             y = joy.Vertical;
-            Move();
+            Move(x,y);
         }
         // 부드럽게 동기화
         else if ((transform.position - curPos).sqrMagnitude >= 100) transform.position = curPos;
         else transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
-
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             m_aimplayer.Attacked();
             TakeDamage(0.25f);
-        }
+        }*/
         
     }
     void Awake()
@@ -194,7 +191,6 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         _id = NetworkManager._userid- 1;
         PhotonNetwork.NickName = LoginManager._username;
         PV.RPC("AddNickname", RpcTarget.AllBuffered, _id, PhotonNetwork.NickName);
-        //Debug.Log(PhotonNetwork.NickName);
         m_cam = Camera.main.GetComponent<CameraController>();
         if(PV.IsMine) m_cam._target = this;
         if (PV != null)

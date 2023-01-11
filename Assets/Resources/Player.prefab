@@ -392,7 +392,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joy: {fileID: 0}
-  _speed: 4
   pos: {fileID: 3841900363566905650}
   boxSize: {x: 1, y: 1.5}
   _canvas: {fileID: 6021721437623095832}

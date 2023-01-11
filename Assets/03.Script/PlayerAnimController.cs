@@ -25,13 +25,12 @@ public class PlayerAnimController : MonoBehaviour
         if (!_IsDrawing)
         {
             movepoint.SetActive(false);
-            //speed¡ı∞°s
-            m_player.SPEED = 4f;
+            m_player.SPEED = 3f;
         }
         else
         {
             movepoint.SetActive(true);
-            m_player.SPEED = 8f;
+            m_player.SPEED = 4f;
         }
     }
 

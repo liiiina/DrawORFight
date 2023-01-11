@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     static AudioSource audioSource;
     public static AudioClip audioClip;
+    public AudioSource musicSource;
 
     // Start is called before the first frame update
     void Start()
@@ -17,5 +18,9 @@ public class AudioManager : MonoBehaviour
     public static void SoundPlay()
     {
         audioSource.PlayOneShot(audioClip);
+    }
+    public void SetMusicVolume(float vol)
+    {
+        musicSource.volume = vol;
     }
 }

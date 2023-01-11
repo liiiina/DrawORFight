@@ -27,7 +27,6 @@ public class Countdown : MonoBehaviour
     void Start()
     {
         TimeSet();
-        //countdownText.text = setTime.ToString();
         countdownText.text = string.Format("{0:D2} : {0:D2}", _Min, (int)_Sec);
     }
 
@@ -58,3 +57,4 @@ public class Countdown : MonoBehaviour
 
     }
 }
+

@@ -10,6 +10,7 @@ using Photon.Realtime;
 public class ButtonController : MonoBehaviourPunCallbacks
 {
     [SerializeField] GameObject resultpoint;
+    [SerializeField] GameObject settingPanel;
     public GameObject[] RespawnPoint = new GameObject[4];
     private GameObject tmp;
     private GameObject attackpoint;
@@ -36,7 +37,10 @@ public class ButtonController : MonoBehaviourPunCallbacks
     }
     public void OnClickLobbynButton() => SceneManager.LoadScene("Lobby");
 
-
+    public void OnClickSettingButton()
+    {
+        settingPanel.SetActive(true);
+    }
 
 
     void Awake()

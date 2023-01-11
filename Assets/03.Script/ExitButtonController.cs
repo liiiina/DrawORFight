@@ -17,7 +17,6 @@ public class ExitButtonController : MonoBehaviour
     public void OnclickNoButton()
     {
         exitPanel.SetActive(false);
-    }
-
+    } 
 
 }
