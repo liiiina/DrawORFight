@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     float yMax = 25;
     string tilename;
     bool isflip = false;
-    float _speed = 3f;
+    float _speed = 4f;
 
     public float SPEED { get { return _speed; } set { _speed = value; } }
     //public bool _isAttack { get { return attack; } set { attack = value; } }
