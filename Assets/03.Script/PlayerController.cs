@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     float yMax = 25;
     string tilename;
     bool isflip = false;
-    float _speed = 4f;
+    float _speed = 5f;
 
     public float SPEED { get { return _speed; } set { _speed = value; } }
     //public bool _isAttack { get { return attack; } set { attack = value; } }
@@ -69,13 +69,11 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     [PunRPC]
     void DestroyRPC() => Destroy(gameObject);
     [PunRPC]
-    void DrawTile(int id,string name)
+    void DrawTile(int id, string name)
     {
-        //Debug.Log(id);
         var coll_tile = GameObject.Find(name).GetComponent<SpriteRenderer>();
         coll_tile.color = PlayerList.Instance.GetPlayerColor(id);
         PlayerList.Instance.TileCount(id);
-        //Debug.Log(coll_tile.color);
     }
     [PunRPC]
     void FlipXColliderON(bool flip)
@@ -138,17 +136,16 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         if (Health.fillAmount == 0 && PV.IsMine) StartCoroutine("Die", 1.4f);
     }
 
+    public void Draw(Collider2D col)
+    {
+        tilename = col.gameObject.name;
+        PV.RPC("DrawTile", RpcTarget.AllBuffered, _id, tilename);
+    }
+
  
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Tile")&& m_aimplayer._IsDrawing)
-        {
-            AudioManager.SoundPlay();
-            tilename = collision.gameObject.name;
-            PV.RPC("DrawTile", RpcTarget.AllBuffered,_id,tilename);
-        }
-        //АјАн
-        else if ( collision.CompareTag("Player") &&
+       if ( collision.CompareTag("Player") &&
                   PV.IsMine == false )
         {
             //Debug.Log(collision);

@@ -35,7 +35,11 @@ public class ButtonController : MonoBehaviourPunCallbacks
         tmp = PhotonNetwork.Instantiate("Player", new Vector3(respawnTransform.position.x, respawnTransform.position.y), Quaternion.identity);
         m_Animplayer = tmp.GetComponent<PlayerAnimController>();
     }
-    public void OnClickLobbynButton() => SceneManager.LoadScene("Lobby");
+    public void OnClickLobbynButton()
+    {
+        print("로비로 고고씽");
+        SceneManager.LoadSceneAsync("Lobby");
+    }
 
     public void OnClickSettingButton()
     {

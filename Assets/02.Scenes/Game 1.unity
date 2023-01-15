@@ -15316,11 +15316,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4072435457848982940, guid: ba79bba1ce44168489d7b8388b9f8c8c,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba79bba1ce44168489d7b8388b9f8c8c, type: 3}
 --- !u!1 &887983888
@@ -15828,6 +15823,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myPercentText: {fileID: 2070376481}
   winnerText: {fileID: 1787484385}
+  Text_myareaTitle: {fileID: 0}
+  Text_myarea: {fileID: 0}
+  Text_winnerTitle: {fileID: 0}
+  Text_winner: {fileID: 0}
 --- !u!4 &1306550458
 Transform:
   m_ObjectHideFlags: 0

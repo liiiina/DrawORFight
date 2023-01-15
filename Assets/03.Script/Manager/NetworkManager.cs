@@ -25,7 +25,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private int count = 0; 
 
     bool roomConnect = false;
-    byte maxplayer = 2;
+    byte maxplayer = 4;
 
     public static int _userid { get { return myid; } }
 
@@ -38,12 +38,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
         if (!PhotonNetwork.IsConnected)
         {
+            print("커넥트 X");
             InfoText.text = "마스터 서버에 접속중입니다...";
             PhotonNetwork.ConnectUsingSettings();
             joinButton.interactable = false;
         }
         else if (PhotonNetwork.InRoom)
         {
+            print("룸 안");
             Time.timeScale = 1;
             PhotonNetwork.LeaveRoom();
         }
@@ -52,6 +54,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             InfoText.text = "마스터 서버에 접속중입니다...";
             joinButton.interactable = false;
         }
+        
     }
 
     public override void OnLeftRoom()
@@ -62,7 +65,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster() //ConnectUsingSettings와 leave room의 콜백 함수
     {
         InfoText.text = "마스터 서버와 연결 완료!";
-        PhotonNetwork.JoinLobby();
+        if (!PhotonNetwork.InLobby)
+        {
+            print("로비밖");
+            PhotonNetwork.JoinLobby();
+        }
+
+        else
+        {
+            print("로비안");
+            Connect();
+        }
+            
     }
     public override void OnJoinedLobby()
     {
@@ -124,7 +138,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 InfoText.text = "플레이어를 기다리는 중 입니다...";
                 var textObject = countOfPlayerText.GetComponent<Text>();
                 countOfPlayerText.SetActive(true);
-                textObject.text = "( " + PhotonNetwork.CurrentRoom.PlayerCount + " / 4 )";
+                textObject.text = "( " + PhotonNetwork.CurrentRoom.PlayerCount + " / "+maxplayer+" )";
                 
             }
             else
@@ -147,7 +161,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     
     public void Init()
     {
-        
+        PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.LoadLevel("Game");
     }
     

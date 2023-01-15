@@ -6,7 +6,7 @@ public class PlayerList : MonoBehaviour
 {
     //singletone
     private static PlayerList instance = null;
-    int maxPlayer = 2;
+    int maxPlayer = 4;
 
     //playerinfo 구조체 만들기
     struct PlayerInfo
@@ -35,7 +35,7 @@ public class PlayerList : MonoBehaviour
             }
 
         }
-        for (int i = 0; i < 4; i++) presentInfo[i].TileColor = PlayerColor[i];
+        for (int i = 0; i < maxPlayer; i++) presentInfo[i].TileColor = PlayerColor[i];
 
     }
 
@@ -107,7 +107,7 @@ public class PlayerList : MonoBehaviour
             winnername += GetPlayerNickname(maxid[a]);
             winnername += "님! ";
         }
-        if (maxtile == 0) return "우숭자가 없습니다!";
+        if (maxtile == 0) return "우승자가 없습니다!";
         else return winnername;
     }
 
