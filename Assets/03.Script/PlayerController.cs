@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     public Text NicknameText;
     public PhotonView PV;
     public Color[] PlayerColor = new Color[4];
+    public float _speed = 5f;
     private int _id;
 
     PlayerAnimController m_aimplayer;
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     Collider2D col;
     Vector2 moveVec;
     Vector3 curPos;
+    
 
     bool attack = false;
     float xMin = 1;
@@ -41,7 +43,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     float yMax = 25;
     string tilename;
     bool isflip = false;
-    float _speed = 5f;
+    
 
     public float SPEED { get { return _speed; } set { _speed = value; } }
     //public bool _isAttack { get { return attack; } set { attack = value; } }
@@ -53,7 +55,14 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         m_aimplayer.Die();
         GameObject.Find("UI").transform.Find("Panel_Respawn").gameObject.SetActive(true);
         yield return new WaitForSeconds(time);
-        PV.RPC("DestroyRPC", RpcTarget.AllBuffered);
+        PV.RPC("DestroyP", RpcTarget.AllBuffered,gameObject);
+    }
+    IEnumerator Faster(float p_speed)
+    {
+        _speed = p_speed*1.5f;
+        yield return new WaitForSeconds(2f);
+        _speed = p_speed;
+
     }
     #endregion
 
@@ -63,11 +72,17 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     {
         PlayerList.Instance.AddPlayerinfo(id, name);
     }
-
+    
     [PunRPC]
     void FlipXRPC(float x) => SR.flipX = x < 0;
     [PunRPC]
-    void DestroyRPC() => Destroy(gameObject);
+    void DestroyP() => Destroy(gameObject);
+    [PunRPC]
+    void DestroyI(string name)
+    {
+        var item = GameObject.Find(name);
+        Destroy(item);
+    }
     [PunRPC]
     void DrawTile(int id, string name)
     {
@@ -145,11 +160,24 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
  
     private void OnTriggerEnter2D(Collider2D collision)
     {
+       print(collision.name);
        if ( collision.CompareTag("Player") &&
                   PV.IsMine == false )
-        {
+       {
             //Debug.Log(collision);
             Attack(collision);
+       }
+       else if (collision.CompareTag("Item") && collision.name == "heal(Clone)")
+        {
+            AudioManager.itemHeal();
+            Health.fillAmount += 0.5f;
+            PV.RPC("DestroyI", RpcTarget.AllBuffered, collision.name);
+        }
+       else if(collision.CompareTag("Item") && collision.name == "fast(Clone)")
+        {
+            AudioManager.itemFast();
+            StartCoroutine("Faster",_speed);
+            PV.RPC("DestroyI", RpcTarget.AllBuffered, collision.name);
         }
     }
     

@@ -11,7 +11,7 @@ public class PlayerDrawController : MonoBehaviour
   
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision);
+        //Debug.Log(collision);
         if (collision.CompareTag("Tile"))
         {
             AudioManager.SoundPlay();

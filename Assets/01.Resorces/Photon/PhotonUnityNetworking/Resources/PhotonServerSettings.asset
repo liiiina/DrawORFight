@@ -47,6 +47,8 @@ MonoBehaviour:
   - FlipXColliderOFF
   - FlipXColliderON
   - AddNickname
+  - DestroyI
+  - DestroyP
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

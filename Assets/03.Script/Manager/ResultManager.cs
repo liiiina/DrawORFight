@@ -11,38 +11,12 @@ using Photon.Realtime;
 public class ResultManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] Text myPercentText, winnerText;
-    [SerializeField] GameObject Text_myareaTitle;
-    [SerializeField] GameObject Text_myarea;
-    [SerializeField] GameObject Text_winnerTitle;
-    [SerializeField] GameObject Text_winner;
 
     int width = 48;
     int height = 24;
     int maxplayer = 4;
 
-    IEnumerator Text1()
-    {
-        Text_myareaTitle.SetActive(true);
-        yield return new WaitForSeconds(2);
-    }
-    IEnumerator Text2()
-    {
-        print("2");
-        Text_myarea.SetActive(true);
-        yield return new WaitForSeconds(2);
-    }
-    IEnumerator Text3()
-    {
-        print("3");
-        Text_winnerTitle.SetActive(true);
-        yield return new WaitForSeconds(2);
-    }
-    IEnumerator Text4()
-    {
-        print("4");
-        Text_winner.SetActive(true);
-        yield return new WaitForSeconds(2);
-    }
+    
 
     void Start()
     {
@@ -58,11 +32,6 @@ public class ResultManager : MonoBehaviourPunCallbacks
             myPercentText.text = string.Format("{0:0.##}", tilePercent)+"%"; //나의 타일 퍼센트
         }
         winnerText.text = playerinfo.GetWinner();
-        StartCoroutine(Text1());
-        StartCoroutine(Text2());
-        StartCoroutine(Text3());
-        StartCoroutine(Text4());
-
     }
 
 }

@@ -18,6 +18,9 @@ public class Countdown : MonoBehaviour
 
     PlayerController m_player;
     GridManager m_gridManager;
+    bool isPlaying = true;
+
+    public bool _getState { get { return isPlaying; } }
 
     void TimeSet()
     {
@@ -46,6 +49,7 @@ public class Countdown : MonoBehaviour
 
             (setTime < 0)
         {
+            isPlaying = true;
             Time.timeScale = 0.0f;
             resultPanel.SetActive(true);
             joystick.SetActive(false);
