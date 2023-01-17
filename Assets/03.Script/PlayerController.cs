@@ -42,9 +42,11 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     float yMax = 25;
     string tilename;
     bool isflip = false;
-    
+    bool isDie = false;
+    bool isInvincible = false;
 
     public float SPEED { get { return _speed; } set { _speed = value; } }
+    
     //public bool _isAttack { get { return attack; } set { attack = value; } }
 
     #region Coroutine
@@ -54,11 +56,11 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         m_aimplayer.Die();
         GameObject.Find("UI").transform.Find("Panel_Respawn").gameObject.SetActive(true);
         yield return new WaitForSeconds(time);
-        PV.RPC("DestroyP", RpcTarget.AllBuffered,gameObject);
+        PV.RPC("DestroyP", RpcTarget.AllBuffered);
     }
     IEnumerator Faster(float p_speed)
     {
-        _speed = p_speed*1.5f;
+        _speed = p_speed*1.2f;
         yield return new WaitForSeconds(2f);
         _speed = p_speed;
 
@@ -70,6 +72,15 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
             gameStartText.color = new Color(gameStartText.color.r, gameStartText.color.g, gameStartText.color.b, gameStartText.color.a-Time.deltaTime);
             yield return null;
         }
+    }
+    IEnumerator startInvincible()
+    {
+        var alpha = gameObject.GetComponent<SpriteRenderer>();
+        alpha.color = new Color(1, 1, 1, 0.5f);
+        isInvincible = true;
+        yield return new WaitForSeconds(2f);
+        isInvincible = false;
+        alpha.color = new Color(1, 1, 1, 1);
     }
     #endregion
 
@@ -155,7 +166,11 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
             m_aimplayer.Attacked();
             Health.fillAmount -= damage;
         }
-        if (Health.fillAmount == 0 && PV.IsMine) StartCoroutine("Die", 1.4f);
+        if (Health.fillAmount == 0 && PV.IsMine)
+        {
+            isDie = true;
+            StartCoroutine("Die", 1.4f);
+        }
     }
 
     public void Draw(Collider2D col)
@@ -171,9 +186,10 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
        if ( collision.CompareTag("Player") &&
                   PV.IsMine == false )
        {
-            //Debug.Log(collision);
-            Attack(collision);
-       }
+            var vsPlayer = collision.gameObject.GetComponent<PlayerController>();
+            if(!vsPlayer.isDie && !vsPlayer.isInvincible)
+                Attack(collision);
+        }
        else if (collision.CompareTag("Item") && collision.name == "heal(Clone)")
         {
             AudioManager.itemHeal();
@@ -202,12 +218,12 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         // 부드럽게 동기화
         else if ((transform.position - curPos).sqrMagnitude >= 100) transform.position = curPos;
         else transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
-        /*
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             m_aimplayer.Attacked();
             TakeDamage(0.25f);
-        }*/
+        }
         
     }
     void Awake()
@@ -231,6 +247,7 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
             NicknameText.text = PV.IsMine ? PhotonNetwork.NickName : PV.Owner.NickName;
             NicknameText.color = PV.IsMine ? Color.white : Color.red;
         }
+        StartCoroutine("startInvincible");
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

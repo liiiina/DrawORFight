@@ -13,10 +13,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
     [SerializeField] Text myPercentText, winnerText;
 
     int width = 48;
-    int height = 24;
-    int maxplayer = 4;
-
-    
+    int height = 24;  
 
     void Start()
     {

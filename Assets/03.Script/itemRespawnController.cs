@@ -21,7 +21,7 @@ public class itemRespawnController : MonoBehaviour
     {
         while (cd._getState)//시간이 끝나지 않았을 때
         {
-            yield return new WaitForSeconds(20f);
+            yield return new WaitForSeconds(25f);
             GameObject instantHeal = PhotonNetwork.Instantiate("heal", randomPosition(), Quaternion.identity);
         }
     }
@@ -29,7 +29,7 @@ public class itemRespawnController : MonoBehaviour
     {
         while (cd._getState)
         {
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(15f);
             GameObject instantHeal = PhotonNetwork.Instantiate("fast", randomPosition(), Quaternion.identity);
         }
     }

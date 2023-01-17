@@ -11,14 +11,30 @@ public class ButtonController : MonoBehaviourPunCallbacks
 {
     [SerializeField] GameObject resultpoint;
     [SerializeField] GameObject settingPanel;
+    [SerializeField] Button img_shot;
     public GameObject[] RespawnPoint = new GameObject[4];
     private GameObject tmp;
     private GameObject attackpoint;
     
     PlayerAnimController m_Animplayer;
     Transform respawnTransform;
- 
+
+    bool isAttack = false;
+
+
     public GameObject _gettmp { get { return tmp; } }
+
+    IEnumerator Attack()
+    {
+        var cooltime = 0.7f;
+        isAttack = true;
+        AudioManager.shotPlay();
+        m_Animplayer.DoAttack();
+        img_shot.interactable = false;
+        yield return new WaitForSeconds(cooltime);
+        img_shot.interactable = true;
+        isAttack = false;
+    }
 
     public void OnClickChangeButton()
     {
@@ -26,8 +42,8 @@ public class ButtonController : MonoBehaviourPunCallbacks
     }
     public void OnClickAttackButton()
     {
-        m_Animplayer.DoAttack();
-
+        if(!isAttack)
+            StartCoroutine("Attack");
     }
     public void OnclickRespawnButton()
     {
