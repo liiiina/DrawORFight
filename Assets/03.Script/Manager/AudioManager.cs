@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSource;
     public static AudioClip fastClip;
     public static AudioClip healClip;
+    public static AudioClip alarmClip;
 
     // Start is called before the first frame update
     void Start()
@@ -17,19 +18,25 @@ public class AudioManager : MonoBehaviour
         audioClip = Resources.Load<AudioClip>("cute");
         fastClip = Resources.Load<AudioClip>("get_fast");
         healClip = Resources.Load<AudioClip>("get_healitem");
+        alarmClip = Resources.Load<AudioClip>("alarm");
     }
 
-    public static void SoundPlay()
+    public static void SoundPlay() //색칠 소리
     {
         audioSource.PlayOneShot(audioClip);
     }
-    public static void itemFast()
+    public static void itemFast() //달리기 소리
     {
         audioSource.PlayOneShot(fastClip);
     }
-    public static void itemHeal()
+    public static void itemHeal() // 회복 소리
     {
         audioSource.PlayOneShot(healClip);
+    }
+    
+    public static void alarmPlay() // 60초 남았을때 알람소리
+    {
+        audioSource.PlayOneShot(alarmClip);
     }
     public void SetMusicVolume(float vol)
     {

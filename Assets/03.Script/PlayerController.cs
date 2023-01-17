@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     [SerializeField] Image Health;
     [SerializeField] GameObject AttackPoint_left;
     [SerializeField] GameObject AttackPoint_right;
- 
+    
+
 
     public Text NicknameText;
     public PhotonView PV;
@@ -26,15 +27,13 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
     private int _id;
 
     PlayerAnimController m_aimplayer;
-
     ButtonController m_button;
     Rigidbody2D rigid;
     CameraController m_cam;
     Tile tilescript;
-    Collider2D col;
     Vector2 moveVec;
     Vector3 curPos;
-    
+    Text gameStartText;
 
     bool attack = false;
     float xMin = 1;
@@ -63,6 +62,14 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         yield return new WaitForSeconds(2f);
         _speed = p_speed;
 
+    }
+    IEnumerator FadeGameStartText()
+    {
+        while (gameStartText.color.a > 0.0f)
+        {
+            gameStartText.color = new Color(gameStartText.color.r, gameStartText.color.g, gameStartText.color.b, gameStartText.color.a-Time.deltaTime);
+            yield return null;
+        }
     }
     #endregion
 
@@ -208,7 +215,8 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable
         rigid = GetComponent<Rigidbody2D>();
         m_aimplayer = GetComponent<PlayerAnimController>();
         if(PV.IsMine) joy = GameObject.Find("UI").transform.Find("Joystick").gameObject.GetComponent<VariableJoystick>();
-        
+        gameStartText = GameObject.Find("UI").transform.Find("Text_gamestart").gameObject.GetComponent<Text>();
+        StartCoroutine("FadeGameStartText");
     }
 
     void Start()

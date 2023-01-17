@@ -7,11 +7,9 @@ using Photon.Realtime;
 public class PlayerDrawController : MonoBehaviour
 {
     PlayerController player;
-    public PhotonView PV;
   
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log(collision);
         if (collision.CompareTag("Tile"))
         {
             AudioManager.SoundPlay();
@@ -26,3 +24,4 @@ public class PlayerDrawController : MonoBehaviour
     }
 
 }
+

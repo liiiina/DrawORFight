@@ -19,7 +19,7 @@ public class Countdown : MonoBehaviour
     PlayerController m_player;
     GridManager m_gridManager;
     bool isPlaying = true;
-
+    bool isRinging = false;
     public bool _getState { get { return isPlaying; } }
 
     void TimeSet()
@@ -40,6 +40,11 @@ public class Countdown : MonoBehaviour
         {
             if (setTime < 60.0f)
             {
+                if (!isRinging)
+                {
+                    AudioManager.alarmPlay();
+                    isRinging = true;
+                }
                 countdownText.color = Color.red;
             }
             setTime -= Time.deltaTime;
