@@ -4,3 +4,5 @@
 
 * Unity 3.18ver
 * Andriod
+
+Scripts : Asset-> scripts
